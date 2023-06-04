@@ -55,7 +55,7 @@ class SMSView(View):
                 return redirect('sms-view')
             sms_data = loads(data)
 
-        if sms_data.get(key):
-            messages = sms_data[key]
-            del sms_data[key]
-        return render(request, 'chat.html', {'people': sms_data.keys(), 'messages': messages, 'current': key})
+        if sms_data['sms_data'].get(key):
+            messages = sms_data['sms_data'][key]
+            del sms_data['sms_data'][key]
+        return render(request, 'chat.html', {'people': sms_data['sms_data'].keys(), 'messages': messages, 'current': key})

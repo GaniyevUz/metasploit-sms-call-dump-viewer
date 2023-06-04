@@ -10,6 +10,8 @@ chat-style format. The tool allows users to upload their dumped files securely w
 - Supports various message and call attributes such as sender, receiver, timestamp, and message content.
 - Customizable styling options to suit your preferences.
 
+# Screenshot
+![](src/photo_2023-06-04_16-25-43.jpg)
 ## Usage
 
 1. Clone this repository:
