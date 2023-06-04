@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SMS viewer</title>
+    <style type="text/css">
+        body {
+            font-family: sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 200px;
+        }
+
+        .alert {
+            position: relative;
+            padding: 0.75rem 1.25rem;
+            margin-bottom: 1rem;
+            border: 1px solid transparent;
+            border-radius: 0.25rem;
+        }
+
+        .alert-danger {
+            color: #721c24;
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+        }
+
+        .spacer {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .container {
+            position: relative;
+        }
+
+        .file-input__input {
+            cursor: pointer;
+            width: 200px;
+            height: 40px;
+            opacity: 0;
+            overflow: hidden;
+            position: absolute;
+            z-index: 2;
+        }
+
+        .file-input__label {
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            border-radius: 4px;
+            font-size: 20px;
+            font-weight: 600;
+            width: 200px;
+            height: 40px;
+            color: #fff;
+            padding: 10px 12px;
+            background-color: #4245a8;
+            box-shadow: 0 0 2px rgba(0, 0, 0, 0.25);
+        }
+
+        .file-input__label svg {
+            cursor: pointer;
+            height: 24px;
+            width: 24px;
+            margin-right: 20px;
+        }
+
+        .file-input__input:hover {
+            background-color: #30338a;
+        }
+
+
+        .cool-button {
+            cursor: pointer;
+            display: inline-block;
+            padding: 16px 32px; /* Increase padding for bigger buttons */
+            font-size: 18px; /* Increase font size for bigger buttons */
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            background-color: #4245a8;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+            transition: background-color 0.3s ease;
+        }
+
+        .cool-button:hover {
+            background-color: #30338a;
+            This is a danger alert with an example link . Give it a click if you like .
+
+        }
+
+
+    </style>
+</head>
+<body class="spacer">
+
+<form method="post" action="{% url 'sms-view' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="container">
+        {% for error in errors %}
+            <p class="alert alert-danger">{{ error }}</p>
+        {% endfor %}
+
+        <div class="file-input">
+            <input type="file" name="file" id="file-input" class="file-input__input"
+                   onchange="handleFileInputChange()"/>
+            <label class="file-input__label" for="file-input">
+                <svg
+                        aria-hidden="true"
+                        focusable="false"
+                        data-prefix="fas"
+                        data-icon="upload"
+                        class="svg-inline--fa fa-upload fa-w-16"
+                        role="img"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 512 512"
+                >
+                    <path
+                            fill="currentColor"
+                            d="M296 384h-80c-13.3 0-24-10.7-24-24V192h-87.7c-17.8 0-26.7-21.5-14.1-34.1L242.3 5.7c7.5-7.5 19.8-7.5 27.3 0l152.2 152.2c12.6 12.6 3.7 34.1-14.1 34.1H320v168c0 13.3-10.7 24-24 24zm216-8v112c0 13.3-10.7 24-24 24H24c-13.3 0-24-10.7-24-24V376c0-13.3 10.7-24 24-24h136v8c0 30.9 25.1 56 56 56h80c30.9 0 56-25.1 56-56v-8h136c13.3 0 24 10.7 24 24zm-124 88c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20zm64 0c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20z"
+                    ></path>
+                </svg>
+                <span id="file-name-label">No file selected</span>
+            </label
+            >
+        </div>
+    </div>
+
+    <div style="padding-top: 10%; align-self: center">
+        <button type="submit" class="cool-button">Submit</button>
+    </div>
+</form>
+<script>
+    function handleFileInputChange() {
+        const fileInput = document.getElementById('file-input');
+        const selectedFiles = fileInput.files;
+        const fileNameLabel = document.getElementById('file-name-label');
+
+        if (selectedFiles.length > 0) {
+            fileNameLabel.textContent = selectedFiles[0].name;
+        } else {
+            fileNameLabel.textContent = 'No file selected';
+        }
+    }
+</script>
+</body>
+</html>

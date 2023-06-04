@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>SMS - {{ current }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    {% include 'styles.html' %}
+</head>
+<body>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-lg-12">
+            <div class="card chat-app">
+                <div id="plist" class="people-list">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-search"></i></span>
+                        </div>
+                        <input type="text" class="form-control" id="searchInput" placeholder="Search...">
+                    </div>
+                    <ul class="list-unstyled chat-list mt-2 mb-0">
+                        <li class="clearfix">
+                            <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
+                            <div class="about">
+                                <div class="name" id="current">{{ current }}</div>
+                                <div class="status"><i class="fa fa-circle online"></i> Current chat</div>
+                            </div>
+                        </li>
+                        {% for name in people %}
+                            <a href="{% url 'sms-read-view' name %}">
+                                <li class="clearfix">
+                                    <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="avatar">
+                                    <div class="about">
+                                        <div class="name">{{ name }}</div>
+                                        <div class="status"><i
+                                                class="fa fa-circle"></i> Click here to read
+                                        </div>
+                                    </div>
+                                </li>
+                            </a>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="chat">
+                    <div class="chat-header clearfix">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <a href="javascript:void(0);" data-toggle="modal" data-target="#view_info">
+                                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
+                                </a>
+                                <div class="chat-about">
+                                    <h6 class="m-b-0">{{ current }}</h6>
+                                    <small>All messages here from {{ current }}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chat-history">
+                        <ul class="m-b-0">
+                            {% for message in messages %}
+                                {% if message.Type == 'Incoming' %}
+                                    <li class="clearfix">
+                                        <div class="message-data">
+                                            <span class="message-data-time">{{ message.Date }}</span>
+                                        </div>
+                                        <div class="message my-message">{{ message.Message }}</div>
+                                    </li>
+                                {% else %}
+                                    <li class="clearfix">
+                                        <div class="message-data text-right">
+                                            <span class="message-data-time">{{ message.Date }}</span>
+                                        </div>
+                                        <div class="message other-message float-right">{{ message.Message }}</div>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="chat-message clearfix">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript">
+        function searchPeople() {
+            // Get the search input value
+            let searchQuery = document.getElementById('searchInput').value.toLowerCase();
+            console.log(searchQuery);
+            // Get the list of people
+            let peopleList = document.getElementsByClassName('chat-list')[0].getElementsByTagName('li');
+
+            // Loop through each person in the list
+            for (let i = 0; i < peopleList.length; i++) {
+                let person = peopleList[i];
+                let name = person.getElementsByClassName('name')[0].textContent.toLowerCase();
+
+                // Check if the person's name matches the search query
+                if (name.includes(searchQuery)) {
+                    person.style.display = 'block'; // Show the person
+                } else {
+                    person.style.display = 'none'; // Hide the person
+                }
+            }
+        }
+    </script>
+    <script type="text/javascript">
+        document.getElementById('searchInput').addEventListener('input', searchPeople);
+    </script>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Call History</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        table {
+            margin: 0 auto;
+            border-collapse: collapse;
+            width: 80%;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .call-icon {
+            font-size: 18px;
+            margin-right: 5px;
+        }
+
+        .incoming {
+            background-color: #d4fcd8; /* Light green */
+        }
+
+        .outgoing {
+            background-color: #fcd4d4; /* Light red */
+        }
+
+        .missed {
+            background-color: #ffdddd; /* Light pink */
+        }
+    </style>
+</head>
+<body>
+<h1>Device Information</h1>
+<table>
+    <tr>
+        <th>Field</th>
+        <th>Value</th>
+    </tr>
+    <tr>
+        <td>Date</td>
+        <td>2023-06-03 20:38:05.956047928 +0500</td>
+    </tr>
+    <tr>
+        <td>OS</td>
+        <td>Android 13 - Linux 4.14.190-perf-g4a737c311b6a (aarch64)</td>
+    </tr>
+    <tr>
+        <td>Remote IP</td>
+        <td>192.168.199.48</td>
+    </tr>
+    <tr>
+        <td>Remote Port</td>
+        <td>44120</td>
+    </tr>
+</table>
+<h1>Call History</h1>
+<table>
+    <tr>
+        <th>#</th>
+        <th>Number</th>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Duration</th>
+        <th>Date</th>
+    </tr>
+    <tr class="incoming">
+        <td>1</td>
+        <td>09:30 AM</td>
+        <td>John Doe</td>
+        <td><i class="fas fa-arrow-down call-icon"></i>Incoming</td>
+        <td>00:05:27</td>
+        <td>2023-05-30</td>
+    </tr>
+    <tr class="outgoing">
+        <td>1</td>
+        <td>03:45 PM</td>
+        <td>Jane Smith</td>
+        <td><i class="fas fa-arrow-up call-icon"></i>Outgoing</td>
+        <td>00:10:12</td>
+        <td>2023-05-30</td>
+    </tr>
+    <tr class="missed">
+        <td>1</td>
+        <td>10:15 AM</td>
+        <td>David Johnson</td>
+        <td><i class="fas fa-exclamation-circle call-icon"></i>Missed</td>
+        <td>N/A</td>
+        <td>2023-06-01</td>
+    </tr>
+    <!-- Add more rows for additional call history -->
+</table>
+</body>
+</html>
