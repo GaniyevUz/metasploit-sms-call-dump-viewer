@@ -1,6 +1,7 @@
 from json import dumps, loads
 from time import time
 
+from django.http import JsonResponse, HttpResponseBadRequest
 from django.shortcuts import render, redirect
 from django.views import View
 from django.views.generic import FormView
@@ -25,6 +26,10 @@ class IndexPageView(FormView):
             if line.startswith('=') or line.strip() == '' or line.startswith('[+') or line.startswith('#'):
                 continue
             else:
+                data = line.split(':', 1)
+                if not len(data) == 2:
+                    return render(self.request, 'index.html', {'errors': ['Invalid file. make sure it is dumped vie '
+                                                                          'metasploit']})
                 key, value = line.split(':', 1)
                 message[key.strip()] = value.strip()
                 if key.strip() == 'Remote Port':
@@ -58,4 +63,5 @@ class SMSView(View):
         if sms_data['sms_data'].get(key):
             messages = sms_data['sms_data'][key]
             del sms_data['sms_data'][key]
-        return render(request, 'chat.html', {'people': sms_data['sms_data'].keys(), 'messages': messages, 'current': key})
+        return render(request, 'chat.html',
+                      {'people': sms_data['sms_data'].keys(), 'messages': messages, 'current': key})
